@@ -1,0 +1,51 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "title": "Хліб",
+      "description": "Хліб з неймовірною хрустинкою",
+      "price": 20,
+      "labelId": 1,
+      "measure": "г",
+      "amount": 400,
+      "src": "https://images.pexels.com/photos/461060/pexels-photo-461060.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
+    },
+    {
+      "id": 2,
+      "title": "Яйця",
+      "description": "Таких свіжих яєць ви ще не бачили",
+      "price": 42,
+      "labelId": 2,
+      "measure": "шт",
+      "amount": 10,
+      "src": "https://upload.wikimedia.org/wikipedia/commons/7/75/Eggs-5486.JPG"
+    }
+  ],
+  "labels": [
+    {
+      "id": 1,
+      "title": "Хлібобулочні вироби"
+    },
+    {
+      "id": 2,
+      "title": "Продукти тваринного походження"
+    }
+  ],
+  "dishes": [
+    {
+      "id": 1,
+      "title": "Хліб з яйцями",
+      "description": "Пасує до обідів",
+      "products": [
+        {
+          "id": 1,
+          "amount": 200
+        },
+        {
+          "id": 2,
+          "amount": 2
+        }
+      ]
+    }
+  ]
+}

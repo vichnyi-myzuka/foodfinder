@@ -1,18 +1,20 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1>Останні страви</h1>
+    <ToCartButton/>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
-export default {
+import ToCartButton from '../components/Main/Buttons/ToCartButton/ToCartButton'
+import Vue from 'vue'
+export default Vue.extend({
   name: 'Home',
   components: {
-    HelloWorld
+    ToCartButton
   }
-}
+})
 </script>
+<style lang="sass">
+  @import "../sass/views/Home"
+</style>
