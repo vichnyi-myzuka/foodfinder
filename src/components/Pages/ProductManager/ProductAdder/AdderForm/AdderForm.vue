@@ -61,6 +61,18 @@
           cols="12"
           md="12"
         >
+          <v-text-field
+            v-model="price"
+            label="Ціна"
+            type="number"
+            required
+            min="0"
+          ></v-text-field>
+        </v-col>
+        <v-col
+          cols="12"
+          md="12"
+        >
           <v-combobox
             clearable
             small-chips
@@ -90,7 +102,8 @@ export default Vue.extend({
       src: '',
       measure: 'шт',
       amount: 0,
-      label: ''
+      label: '',
+      price: 0
     }
   },
   computed: {
@@ -106,7 +119,8 @@ export default Vue.extend({
         description: this.description,
         src: this.src,
         measure: this.measure,
-        amount: this.amount
+        amount: this.amount,
+        price: this.price
       }
     }
   },

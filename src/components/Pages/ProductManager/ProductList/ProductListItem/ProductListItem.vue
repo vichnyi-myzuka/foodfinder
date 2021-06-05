@@ -4,6 +4,12 @@
       link
       elevation="0"
     >
+      <div class="ProductDetails">
+        <div class="ProductAmount">
+          {{product.amount + " " + product.measure + "/" + product.price + "UAH"}}
+        </div>
+
+      </div>
       <div class="ProductImage">
         <img :src="product.src" alt="">
       </div>
