@@ -1,5 +1,5 @@
 <template>
-  <nav>
+  <nav class="NavigationBar">
     <v-app-bar
       color="amber lighten-2"
       elevation="0"
