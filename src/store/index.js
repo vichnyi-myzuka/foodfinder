@@ -6,12 +6,21 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     drawer: false,
+    labels: ["М'ясо", 'Молочка', 'Овочі', 'Фрукти', 'Спеції'],
+    products: JSON.parse(localStorage.getItem('products')) || [],
     dishes: [],
     cart: []
   },
   mutations: {
+    addLabel (state, value) {
+      state.labels.push(value)
+    },
     addDish (state, value) {
       state.dishes.push(value)
+    },
+    addProduct (state, value) {
+      state.products.push(value)
+      localStorage.setItem('products', JSON.stringify(state.products))
     },
     setDrawer (state, value) {
       state.drawer = value
@@ -24,6 +33,13 @@ export default new Vuex.Store({
       if (index > -1) {
         state.cart.splice(index, 1)
       }
+    },
+    removeProduct (state, value) {
+      const index = state.products.indexOf(value)
+      if (index > -1) {
+        state.products.splice(index, 1)
+      }
+      localStorage.setItem('products', JSON.stringify(state.products))
     }
   },
   actions: {
@@ -38,6 +54,15 @@ export default new Vuex.Store({
     },
     addDish (context, value) {
       return context.commit('addDish', value)
+    },
+    addProduct (context, value) {
+      return context.commit('addProduct', value)
+    },
+    removeProduct (context, value) {
+      return context.commit('removeProduct', value)
+    },
+    addLabel (context, value) {
+      return context.commit('addLabel', value)
     }
   },
   getters: {
@@ -55,6 +80,12 @@ export default new Vuex.Store({
     },
     getDishes: state => {
       return state.dishes
+    },
+    getLabels: state => {
+      return state.labels
+    },
+    getProducts: state => {
+      return state.products
     }
   },
   modules: {

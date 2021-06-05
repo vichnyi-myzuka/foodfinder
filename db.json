@@ -2,33 +2,77 @@
   "products": [
     {
       "id": 1,
-      "title": "Хліб",
-      "description": "Хліб з неймовірною хрустинкою",
-      "price": 20,
+      "title": "М'ясо свинини",
+      "description": "",
+      "price": 100,
       "labelId": 1,
-      "measure": "г",
-      "amount": 400,
+      "measure": "кг",
+      "amount": 1,
       "src": "https://images.pexels.com/photos/461060/pexels-photo-461060.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
     },
     {
       "id": 2,
-      "title": "Яйця",
-      "description": "Таких свіжих яєць ви ще не бачили",
-      "price": 42,
+      "title": "Буряк",
+      "description": "",
+      "price": 35,
+      "labelId": 2,
+      "measure": "шт",
+      "amount": 5,
+      "src": "https://images.pexels.com/photos/461060/pexels-photo-461060.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
+    },
+    {
+      "id": 3,
+      "title": "Картопля",
+      "description": "",
+      "price": 25,
       "labelId": 2,
       "measure": "шт",
       "amount": 10,
-      "src": "https://upload.wikimedia.org/wikipedia/commons/7/75/Eggs-5486.JPG"
+      "src": "https://images.pexels.com/photos/461060/pexels-photo-461060.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
+    },
+    {
+      "id": 4,
+      "title": "Морква",
+      "description": "",
+      "price": 25,
+      "labelId": 2,
+      "measure": "шт",
+      "amount": 10,
+      "src": "https://images.pexels.com/photos/461060/pexels-photo-461060.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
+    },
+    {
+      "id": 5,
+      "title": "Квасоля",
+      "description": "",
+      "price": 20,
+      "labelId": 3,
+      "measure": "кг",
+      "amount": 1,
+      "src": "https://images.pexels.com/photos/461060/pexels-photo-461060.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
+    },
+    {
+      "id": 6,
+      "title": "Цибуля ріпчаста",
+      "description": "",
+      "price": 20,
+      "labelId": 2,
+      "measure": "шт",
+      "amount": 5,
+      "src": "https://images.pexels.com/photos/461060/pexels-photo-461060.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
     }
   ],
   "labels": [
     {
       "id": 1,
-      "title": "Хлібобулочні вироби"
+      "title": "М'ясо"
     },
     {
       "id": 2,
-      "title": "Продукти тваринного походження"
+      "title": "Овочі"
+    },
+    {
+      "id": 3,
+      "title": "Бобові"
     }
   ],
   "dishes": [
@@ -36,6 +80,7 @@
       "id": 1,
       "title": "Хліб з яйцями",
       "description": "Пасує до обідів",
+      "portions": 3,
       "products": [
         {
           "id": 1,

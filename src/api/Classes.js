@@ -54,11 +54,20 @@ export class DishGroup {
 }
 
 export class Dish {
-  constructor (title, description, id, products = []) {
+  constructor (title, description, id, portions, products = []) {
     this._title = title
     this._description = description
     this._id = id
+    this._portions = portions
     this._products = products
+  }
+
+  get portions () {
+    return this._portions
+  }
+
+  set portions (value) {
+    this._portions = value
   }
 
   get title () {

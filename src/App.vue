@@ -16,7 +16,8 @@
 import Vue from 'vue'
 import Navigation from './components/Main/Navigation/Navigation'
 import { mapActions } from 'vuex'
-import { Dish } from './api/Classes'
+import { loadAllDishes } from './api/Utility'
+
 export default Vue.extend({
   name: 'App',
   components: { Navigation },
@@ -24,18 +25,7 @@ export default Vue.extend({
     ...mapActions(['addDish'])
   },
   async mounted () {
-    for (let i = 0; i < 10; i++) {
-      this.addDish(new Dish('Хліб з яйцями', 'Пасує до обідів', i, [
-        {
-          id: 1,
-          amount: 200
-        },
-        {
-          id: 2,
-          amount: 2
-        }
-      ]))
-    }
+    loadAllDishes()
   }
 })
 </script>

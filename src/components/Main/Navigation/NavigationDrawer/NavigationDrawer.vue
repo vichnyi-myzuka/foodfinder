@@ -21,6 +21,13 @@
               {{ page.name }}
             </v-list-item-title>
           </v-list-item>
+          <v-divider></v-divider>
+          <h3 class="Title">АДМІН</h3>
+          <v-list-item v-for="page in adminPages" :key="page.name" :value="page.value">
+            <v-list-item-title >
+              {{ page.name }}
+            </v-list-item-title>
+          </v-list-item>
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
@@ -61,7 +68,9 @@ export default Vue.extend({
     return {
       pages: [new ListItem('🏠 Головна ', '/'),
         new ListItem('🥧 Страви', '/dishes'),
-        new ListItem('🛒 Кошик', '/cart')]
+        new ListItem('🛒 Кошик', '/cart')],
+      adminPages: [new ListItem('🍎 Редактор продуктів', '/products/edit'),
+        new ListItem('🥧 Редактор страв', '/dishes/edit')]
     }
   },
   methods: {
