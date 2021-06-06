@@ -9,9 +9,32 @@ export default new Vuex.Store({
     labels: ["М'ясо", 'Молочка', 'Овочі', 'Фрукти', 'Спеції'],
     products: JSON.parse(localStorage.getItem('products')) || [],
     dishes: [],
-    cart: []
+    cart: [],
+    toolbar: {
+      searchIsActive: false,
+      searchQuery: ''
+    }
   },
   mutations: {
+    saveProduct (state, values) {
+      const index = state.products.indexOf(values.oldProduct)
+      const updated = state.products.concat()
+      if (index > -1) {
+        updated[index] = values.newProduct
+        state.products = updated
+      }
+      localStorage.setItem('products', JSON.stringify(state.products))
+    },
+    setSearchQuery (state, value) {
+      state.toolbar.searchQuery = value
+    },
+    setSearchState (state) {
+      state.toolbar.searchIsActive = !state.toolbar.searchIsActive
+    },
+    clearSearch (state) {
+      state.toolbar.searchIsActive = false
+      state.toolbar.searchQuery = ''
+    },
     addLabel (state, value) {
       state.labels.push(value)
     },
@@ -43,8 +66,20 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    saveProduct (context, values) {
+      return context.commit('saveProduct', values)
+    },
+    clearSearch (context) {
+      return context.commit('clearSearch')
+    },
+    setSearchQuery (context, value) {
+      return context.commit('setSearchQuery', value)
+    },
     setDrawer (context, value) {
       return context.commit('setDrawer', value)
+    },
+    setSearchState (context) {
+      return context.commit('setSearchState')
     },
     addToCart (context, value) {
       return context.commit('addToCart', value)
@@ -66,6 +101,12 @@ export default new Vuex.Store({
     }
   },
   getters: {
+    getSearchQuery (state) {
+      return state.toolbar.searchQuery
+    },
+    getSearchState (state) {
+      return state.toolbar.searchIsActive
+    },
     getDrawerState (state) {
       return state.drawer
     },

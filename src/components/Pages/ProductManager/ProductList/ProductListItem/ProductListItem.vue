@@ -3,6 +3,7 @@
       class="ProductListItem"
       link
       elevation="0"
+      @click="isClicked"
     >
       <div class="ProductDetails">
         <div class="ProductAmount">
@@ -10,7 +11,9 @@
         </div>
 
       </div>
-      <div class="ProductImage">
+      <div class="ProductImage"
+        v-if="product.src"
+      >
         <img :src="product.src" alt="">
       </div>
       <div class="ProductInfo">
@@ -49,6 +52,9 @@ export default Vue.extend({
   methods: {
     removeProduct () {
       this.$emit('removeProduct', this.product)
+    },
+    isClicked () {
+      this.$emit('productClicked', this.product)
     }
   }
 })

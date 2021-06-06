@@ -2,19 +2,19 @@
     <v-dialog
       :value="value"
       @keydown="escapeClose"
-      class="ProductAdder"
+      class="ProductEditor"
       fullscreen
       hide-overlay
       transition="dialog-bottom-transition"
       scrollable
     >
       <div
-        class="ProductAdder"
+        class="ProductEditor"
       >
         <v-toolbar
           flat
           dark
-          color="teal darken-1"
+          color="purple darken-3"
         >
           <v-btn
             icon
@@ -23,51 +23,60 @@
           >
             <v-icon>mdi-close</v-icon>
           </v-btn>
-          <v-toolbar-title>Додати продукт</v-toolbar-title>
+          <v-toolbar-title>Зберегти продукт</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
             <v-btn
               text
               dark
-              @click="addProductTo"
+              @click="saveProductToStore"
             >
-              Додати
+              Зберегти
             </v-btn>
           </v-toolbar-items>
         </v-toolbar>
         <v-layout>
-          <AdderForm ref="adder"/>
+          <EditorForm :active="value" :product="product" ref="editor"/>
         </v-layout>
       </div>
     </v-dialog>
 </template>
 <script>
 import Vue from 'vue'
-import AdderForm from './AdderForm/AdderForm'
+import EditorForm from './EditorForm/EditorForm'
 import { mapActions } from 'vuex'
 export default Vue.extend({
-  name: 'ProductAdder',
+  name: 'ProductEditor',
   props: {
-    value: Boolean
+    value: Boolean,
+    product: {
+      required: true
+    }
   },
   components: {
-    AdderForm
+    EditorForm
   },
   methods: {
-    ...mapActions(['addProduct']),
+    ...mapActions(['addProduct', 'saveProduct']),
     escapeClose (e) {
       if (e.keyCode === 27) this.closeModal()
     },
     closeModal () {
-      // this.$refs.adder.resetForm()
+      this.$refs.editor.resetForm()
       this.$emit(
         'input', false
       )
     },
-    addProductTo () {
-      this.addProduct(this.$refs.adder.getFormData())
+    reassignArea () {
+      if (this.$refs.editor) { this.$refs.editor.assignAreas() }
+    },
+    saveProductToStore () {
+      this.saveProduct({
+        oldProduct: this.product,
+        newProduct: this.$refs.editor.getFormData()
+      })
       this.closeModal()
-      this.$emit('adder:addedProduct')
+      this.$emit('editor:editedProduct')
     }
   }
 })

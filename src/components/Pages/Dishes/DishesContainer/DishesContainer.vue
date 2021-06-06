@@ -4,13 +4,13 @@
 </template>
 
 <script>
-  import Vue from 'vue'
-  export default Vue.extend({
-     name: 'DishesContainer',
-     data() {
-         return {
-          groups
-         }
-     }
-  });
+import Vue from 'vue'
+export default Vue.extend({
+  name: 'DishesContainer',
+  data () {
+    return {
+      groups
+    }
+  }
+})
 </script>

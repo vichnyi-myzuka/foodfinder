@@ -1,5 +1,5 @@
 <template>
-  <v-form v-model="valid" class="AdderForm" ref="adderForm">
+  <v-form v-model="valid" class="EditorForm" ref="editorForm">
     <v-container>
       <v-row>
         <v-col
@@ -75,10 +75,10 @@
         >
           <v-combobox
             clearable
+            v-model="label"
             small-chips
             label="Категорія"
             :items="labels"
-            v-model="label"
           >
           </v-combobox>
         </v-col>
@@ -94,7 +94,22 @@ import Vue from 'vue'
 import { mapGetters } from 'vuex'
 import uniqueId from 'lodash.uniqueid'
 export default Vue.extend({
-  name: 'AdderForm',
+  name: 'EditorForm',
+  props: {
+    product: {
+      required: true
+    },
+    active: {
+      required: true
+    }
+  },
+  watch: {
+    active (value) {
+      if (value === true) {
+        this.assignAreas()
+      }
+    }
+  },
   data () {
     return {
       labels: [],
@@ -113,7 +128,7 @@ export default Vue.extend({
   },
   methods: {
     resetForm () {
-      this.$refs.adderForm.reset()
+      this.$refs.editorForm.reset()
     },
     getFormData () {
       return {
@@ -126,12 +141,22 @@ export default Vue.extend({
         label: this.label
       }
     },
+    assignAreas () {
+      this.title = this.product.title
+      this.description = this.product.description
+      this.src = this.product.src
+      this.measure = this.product.measure
+      this.amount = this.product.amount
+      this.label = this.product.label
+      this.price = this.product.price
+    },
     getUniqueId (value) {
       return uniqueId(value)
     }
   },
   async mounted () {
     this.labels = this.getLabels
+    this.assignAreas()
   }
 })
 </script>

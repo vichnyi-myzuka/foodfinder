@@ -1,12 +1,15 @@
 <template>
     <section class="ProductList">
-      <ProductListItem v-for="product in products" :product="product" :key="product.title"
-                       @removeProduct="removeProductFromStore"/>
+      <ProductListItem v-for="product in productsToDisplay" :product="product" :key="hashFunction(product)"
+                       @removeProduct="removeProductFromStore"
+                       @productClicked="productChosen"
+      />
     </section>
 </template>
 <script>
 import Vue from 'vue'
 import { mapGetters, mapActions } from 'vuex'
+import hash from 'object-hash'
 import ProductListItem from './ProductListItem/ProductListItem'
 export default Vue.extend({
   name: 'ProductList',
@@ -14,21 +17,27 @@ export default Vue.extend({
     ProductListItem
   },
   computed: {
-    ...mapGetters(['getProducts'])
-  },
-  data () {
-    return {
-      products: []
+    ...mapGetters(['getProducts', 'getSearchQuery']),
+    productsToDisplay () {
+      if (!this.getSearchQuery) {
+        return this.getProducts
+      } return this.getProducts.filter(el => el.title.includes(this.getSearchQuery))
     }
+
   },
   methods: {
     ...mapActions(['removeProduct']),
     removeProductFromStore (value) {
       this.removeProduct(value)
+    },
+    productChosen (value) {
+      this.$emit('product:selected', value)
+    },
+    hashFunction (object) {
+      return hash(object)
     }
   },
   async mounted () {
-    this.products = this.getProducts
   }
 })
 </script>

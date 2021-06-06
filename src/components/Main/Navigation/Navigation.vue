@@ -11,16 +11,8 @@
       </transition>
       <v-spacer></v-spacer>
       <transition name="fade" mode="out-in">
-      <div class="wrapper" v-if="isDishesPage">
-        <v-btn icon>
-          <v-icon>mdi-magnify</v-icon>
-        </v-btn>
-
-        <v-btn icon>
-          <v-icon>mdi-filter</v-icon>
-        </v-btn>
-      </div>
       </transition>
+      <NavigationMenu v-if="isDishesPage"/>
       <v-btn icon>
         <v-icon>mdi-dots-vertical</v-icon>
       </v-btn>
@@ -33,14 +25,16 @@
 import Vue from 'vue'
 import { mapActions } from 'vuex'
 import NavigationDrawer from './NavigationDrawer/NavigationDrawer'
+import NavigationMenu from './NavigationMenu/NavigationMenu'
 export default Vue.extend({
   name: 'Navigation',
   components: {
-    NavigationDrawer
+    NavigationDrawer, NavigationMenu
   },
   computed: {
     isDishesPage () {
-      return this.$route.name === 'Страви'
+      return this.$route.path === '/dishes' || this.$route.path === '/products/edit' || this.$route.path ===
+          '/dishes/edit'
     }
   },
   methods: {
