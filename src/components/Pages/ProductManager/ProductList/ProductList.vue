@@ -10,18 +10,29 @@
 import Vue from 'vue'
 import { mapGetters, mapActions } from 'vuex'
 import hash from 'object-hash'
+import some from 'lodash.some'
+import { sortBy } from 'lodash'
 import ProductListItem from './ProductListItem/ProductListItem'
 export default Vue.extend({
   name: 'ProductList',
   components: {
     ProductListItem
   },
+  props: {
+    selectedLabels: Array
+  },
   computed: {
     ...mapGetters(['getProducts', 'getSearchQuery']),
     productsToDisplay () {
-      if (!this.getSearchQuery) {
-        return this.getProducts
-      } return this.getProducts.filter(el => el.title.includes(this.getSearchQuery))
+      let toDisplay = this.getProducts
+      toDisplay = sortBy(toDisplay, ['title'])
+      if (this.getSearchQuery) {
+        toDisplay = toDisplay.filter(el => el.title.includes(this.getSearchQuery))
+      }
+      if (this.selectedLabels.length > 0) {
+        toDisplay = toDisplay.filter(el => some(this.selectedLabels, el.label))
+      }
+      return toDisplay
     }
 
   },

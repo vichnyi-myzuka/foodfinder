@@ -3,11 +3,11 @@
     <v-app>
       <v-main>
         <Navigation/>
-        <div class="wrapper">
-          <transition name="fade" mode="out-in">
-            <router-view/>
-          </transition>
-        </div>
+          <div class="wrapper">
+            <transition name="fade" mode="out-in">
+              <router-view/>
+            </transition>
+          </div>
       </v-main>
     </v-app>
   </div>
@@ -16,7 +16,7 @@
 import Vue from 'vue'
 import Navigation from './components/Main/Navigation/Navigation'
 import { mapActions } from 'vuex'
-import { loadAllDishes } from './api/Utility'
+import { loadAllDishes, loadAllProducts, loadAllLabels } from './api/Utility'
 
 export default Vue.extend({
   name: 'App',
@@ -26,6 +26,8 @@ export default Vue.extend({
   },
   async mounted () {
     loadAllDishes()
+    loadAllProducts()
+    loadAllLabels()
   }
 })
 </script>

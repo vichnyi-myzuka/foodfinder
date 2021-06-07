@@ -79,6 +79,7 @@
             small-chips
             label="Категорія"
             :items="labels"
+            :item-text="(el) => el.title"
           >
           </v-combobox>
         </v-col>

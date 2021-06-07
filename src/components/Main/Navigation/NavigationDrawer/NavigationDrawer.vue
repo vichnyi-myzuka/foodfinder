@@ -28,7 +28,19 @@
               {{ page.name }}
             </v-list-item-title>
           </v-list-item>
+          <v-divider></v-divider>
+          <h3 class="Title">JSON</h3>
         </v-list-item-group>
+        <v-list-item @click="copyAllProducts">
+          <v-list-item-title >
+            📋 Скопіювати всі продукти
+          </v-list-item-title>
+        </v-list-item>
+        <v-list-item @click="copyAllDishes">
+          <v-list-item-title >
+            📋 Скопіювати всі страви
+          </v-list-item-title>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
   </section>
@@ -44,7 +56,7 @@ export default Vue.extend({
     drawer: Boolean
   },
   computed: {
-    ...mapGetters(['getDrawerState']),
+    ...mapGetters(['getDrawerState', 'getProducts', 'getDishes']),
     drawerState: {
       get () {
         return this.getDrawerState
@@ -77,6 +89,22 @@ export default Vue.extend({
     ...mapActions(['setDrawer']),
     closeDrawer () {
       this.setDrawer(false)
+    },
+    copyAllProducts () {
+      const el = document.createElement('textarea')
+      el.value = JSON.stringify(this.getProducts)
+      document.body.appendChild(el)
+      el.select()
+      document.execCommand('copy')
+      document.body.removeChild(el)
+    },
+    copyAllDishes () {
+      const el = document.createElement('textarea')
+      el.value = JSON.stringify(this.getDishes)
+      document.body.appendChild(el)
+      el.select()
+      document.execCommand('copy')
+      document.body.removeChild(el)
     }
   }
 })

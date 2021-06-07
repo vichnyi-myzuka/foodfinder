@@ -1,9 +1,11 @@
 <template>
-  <nav class="NavigationBar">
+  <nav class="NavigationBar overflow-hidden" >
     <v-app-bar
       color="amber lighten-2"
       elevation="0"
       prominent
+      shrink-on-scroll
+      app
     >
       <v-app-bar-nav-icon @click.stop="openDrawer"></v-app-bar-nav-icon>
       <transition name="fade" mode="out-in">
@@ -13,9 +15,6 @@
       <transition name="fade" mode="out-in">
       </transition>
       <NavigationMenu v-if="isDishesPage"/>
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
     </v-app-bar>
     <navigation-drawer/>
   </nav>

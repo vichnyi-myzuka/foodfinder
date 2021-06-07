@@ -5,6 +5,7 @@
       title="продуктів"
       description="натисніть на кнопку '+', щоб додати продукти"
     />
+    <ProductFilter v-if="!noProducts" @filter:updated="updateSelectedLabels"/>
     <ProductAdder v-model="addModal" @adder:addedProduct="updateProducts"/>
     <ProductEditor
       ref="productEditor"
@@ -13,7 +14,7 @@
       @input="closeEdit"
       @editor:editedProduct="updateProducts"/>
     <ActionButton :eventHandler="openAddModal"/>
-    <ProductList v-if="!noProducts" @product:selected="changeSelectedProduct" ref="productList"/>
+    <ProductList :selectedLabels="selectedLabels" v-if="!noProducts" @product:selected="changeSelectedProduct" ref="productList"/>
   </div>
 </template>
 <script>
@@ -23,11 +24,12 @@ import EmptyShower from '../components/Main/EmptyShower/EmptyShower'
 import ProductAdder from '../components/Pages/ProductManager/ProductAdder/ProductAdder'
 import ProductList from '../components/Pages/ProductManager/ProductList/ProductList'
 import ProductEditor from '../components/Pages/ProductManager/ProductEditor/ProductEditor'
+import ProductFilter from '../components/Pages/ProductManager/ProductFilter/ProductFilter'
 import { mapGetters } from 'vuex'
 export default Vue.extend({
   name: 'ProductManager',
   components: {
-    ActionButton, EmptyShower, ProductAdder, ProductList, ProductEditor
+    ActionButton, EmptyShower, ProductAdder, ProductList, ProductEditor, ProductFilter
   },
   computed: {
     ...mapGetters(['getProducts']),
@@ -40,10 +42,14 @@ export default Vue.extend({
       products: [],
       addModal: false,
       editModal: false,
-      productSelected: {}
+      productSelected: {},
+      selectedLabels: []
     }
   },
   methods: {
+    updateSelectedLabels (value) {
+      this.selectedLabels = value
+    },
     openAddModal () {
       this.addModal = true
     },

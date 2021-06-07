@@ -6,8 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     drawer: false,
-    labels: ["М'ясо", 'Молочка', 'Овочі', 'Фрукти', 'Спеції'],
-    products: JSON.parse(localStorage.getItem('products')) || [],
+    labels: [],
+    products: [],
     dishes: [],
     cart: [],
     toolbar: {
