@@ -3,31 +3,32 @@
     class="ProductItem"
     elevation="0"
   >
-    <p class="ProductItemIndex">
-      {{ index + "." }}
-    </p>
     <v-combobox
       class="ProductChooser"
       label="Продукт"
-      chips
+      small-chips
       :items="products"
       :item-text="(el) => el.title"
       :item-value="(el) => el"
       v-model="productChosen"
+      @input="updateProduct"
       solo
     >
     </v-combobox>
     <v-text-field
-      label="Кількість"
-      class="elevation-0"
+      class="elevation-0 ProductAmount"
       solo
+      type="number"
       v-model="amount"
+      @input="updateProduct"
+      :prefix="measure"
     >{{ measure }}</v-text-field>
     <v-btn
       class="ProductItemRemoveButton"
       fab
       dark
       small
+      @click="removeProduct"
       color="red lighten-2"
       elevation="0"
     >
@@ -43,7 +44,8 @@ import { mapGetters } from 'vuex'
 export default Vue.extend({
   name: 'ProductItem',
   props: {
-    index: Number
+    index: Number,
+    product: Object
   },
   computed: {
     ...mapGetters(['getProducts']),
@@ -59,8 +61,23 @@ export default Vue.extend({
       amount: 0
     }
   },
+  methods: {
+    removeProduct () {
+      this.$emit('product:remove', this.product)
+    },
+    updateProduct () {
+      this.$emit('product:updated', {
+        old: this.product,
+        product: this.productChosen,
+        amount: this.amount,
+        index: this.index
+      })
+    }
+  },
   async mounted () {
     this.products = this.getProducts
+    if (this.product.product) { this.productChosen = this.product.product }
+    if (this.product.amount) { this.amount = this.product.amount }
   }
 })
 </script>

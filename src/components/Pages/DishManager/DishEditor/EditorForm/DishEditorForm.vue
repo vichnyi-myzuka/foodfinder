@@ -1,5 +1,5 @@
 <template>
-  <v-form v-model="valid" class="AdderForm" ref="adderForm">
+  <v-form ref="dishEditorForm" class="EditorForm">
     <v-container>
       <v-row>
         <v-col
@@ -46,21 +46,24 @@
             min="1"
           ></v-text-field>
         </v-col>
-        <v-col
-          cols="12"
-          md="12"
-        >
+
         <v-card-title>
           Додати продукти
         </v-card-title>
-        </v-col>
         <v-col
           cols="12"
           md="12"
         >
-        <div class="ProductsContainer">
-          <ProductItem v-for="(product, index) in products" :key="index" :index="index"/>
-        </div>
+          <div class="ProductsContainer">
+            <ProductItem v-for="(product, index) in products"
+                         :product="product"
+                         :key="index"
+                         :index="index"
+                         @product:remove="removeProduct"
+                         @product:updated="updateProduct"
+            />
+          </div>
+          <AddProductButton :action="addProduct"/>
         </v-col>
       </v-row>
     </v-container>
@@ -74,47 +77,74 @@
 import Vue from 'vue'
 import uniqueId from 'lodash.uniqueid'
 import ProductItem from './ProductItem/ProductItem'
+import AddProductButton from '../../../../Main/Buttons/AddProductButton/AddProductButton'
 export default Vue.extend({
-  name: 'AdderForm',
+  name: 'DishEditorForm',
   components: {
-    ProductItem
+    ProductItem, AddProductButton
+  },
+  props: {
+    dish: Object
   },
   data () {
     return {
-      labels: [],
-      valid: true,
       title: '',
       description: '',
       src: '',
       portions: 1,
-      products: [{
-
-      }, {
-
-      }]
+      products: []
     }
   },
-  computed: {
+  watch: {
+    dish (value) {
+      this.assignAreas()
+    }
   },
   methods: {
+    updateProduct (value) {
+      this.products[value.index] = {
+        product: value.product,
+        amount: value.amount
+      }
+    },
     resetForm () {
-      this.$refs.adderForm.reset()
+      this.$refs.dishEditorForm.reset()
+      this.products = []
     },
     getFormData () {
       return {
         title: this.title,
         description: this.description,
         src: this.src,
-        portions: this.portions
+        portions: this.portions,
+        products: this.products
       }
     },
     getUniqueId (value) {
       return uniqueId(value)
+    },
+    removeProduct (value) {
+      const index = this.products.indexOf(value)
+      if (index > -1) {
+        this.products.splice(index, 1)
+      }
+    },
+    addProduct () {
+      this.products = [...this.products, {}]
+    },
+    assignAreas () {
+      this.title = this.dish.title
+      this.description = this.dish.description
+      this.src = this.dish.src
+      this.portions = this.dish.portions
+      this.products = this.dish.products
     }
   },
   async mounted () {
+    this.assignAreas()
   }
 })
+
 </script>
 <style lang="sass" scoped>
   @import "styles"

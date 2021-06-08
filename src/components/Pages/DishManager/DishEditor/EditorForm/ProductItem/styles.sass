@@ -1,0 +1,30 @@
+.ProductItem
+  display: grid
+  grid-template-columns: 6fr 7rem 40px
+  margin-bottom: 1rem
+  .v-autocomplete.v-select.v-input--is-focused input
+    min-width: 0
+  .ProductItemIndex
+    display: flex
+    align-items: center
+    margin-right: 1rem
+    flex-basis: 2rem
+  .ProductChooser
+    margin-right: 1rem
+  .ProductAmount
+    margin-right: 1rem
+    flex-basis: 4rem
+    flex-shrink: 0
+  .ProductItemRemoveButton
+    align-self: center
+    justify-self: flex-end
+  p
+    margin: 0
+  .v-input
+    .v-input__slot
+      box-shadow: none!important
+      border-radius: 5px
+      margin: 0
+      border: 2px solid #f5f5f5
+    .v-text-field__details
+      display: none!important

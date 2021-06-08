@@ -2,19 +2,19 @@
   <v-dialog
     :value="value"
     @keydown="escapeClose"
-    class="DishAdder"
+    class="DishEditor"
     fullscreen
     hide-overlay
     transition="dialog-bottom-transition"
     scrollable
   >
     <div
-      class="DishAdder"
+      class="DishEditor"
     >
       <v-toolbar
         flat
         dark
-        color="teal darken-1"
+        color="purple darken-3"
       >
         <v-btn
           icon
@@ -23,52 +23,60 @@
         >
           <v-icon>mdi-close</v-icon>
         </v-btn>
-        <v-toolbar-title>Додати страву</v-toolbar-title>
+        <v-toolbar-title>Редагувати страву</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items>
           <v-btn
             text
             dark
-            @click="addDishTo"
+            @click="saveDishToStore"
           >
-            Додати
+            Зберегти
           </v-btn>
         </v-toolbar-items>
       </v-toolbar>
       <v-layout>
-        <DishAdderForm v-if="value" ref="dishAdder"/>
+        <DishEditorForm :active="value" :dish="dish" ref="dishEditor"/>
       </v-layout>
     </div>
   </v-dialog>
 </template>
 <script>
 import Vue from 'vue'
-import DishAdderForm from './AdderForm/DishAdderForm'
+import DishEditorForm from './EditorForm/DishEditorForm'
 import { mapActions } from 'vuex'
 export default Vue.extend({
-  name: 'DishAdder',
+  name: 'DishEditor',
   props: {
-    value: Boolean
+    value: Boolean,
+    dish: {
+      required: true
+    }
   },
   components: {
-    DishAdderForm
+    DishEditorForm
   },
   methods: {
-    ...mapActions(['addDish']),
+    ...mapActions(['addDish', 'saveDish']),
     escapeClose (e) {
       if (e.keyCode === 27) this.closeModal()
     },
     closeModal () {
-      // this.$refs.dishAdder.resetForm()
+      // this.$refs.dishEditor.resetForm()
       this.$emit(
         'input', false
       )
     },
-    addDishTo () {
-      const data = this.$refs.dishAdder.getFormData()
-      this.addDish(data).then(() => {
-        this.$emit('adder:addedDish')
+    reRenderForm () {
+      if (this.$refs.dishEditor) { this.$refs.dishEditor.$forceUpdate() }
+    },
+    saveDishToStore () {
+      this.saveDish({
+        oldDish: this.dish,
+        newDish: this.$refs.dishEditor.getFormData()
+      }).then(() => {
         this.closeModal()
+        this.$emit('editor:editedDish')
       })
     }
   }

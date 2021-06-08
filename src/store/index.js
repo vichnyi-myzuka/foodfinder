@@ -25,6 +25,15 @@ export default new Vuex.Store({
       }
       localStorage.setItem('products', JSON.stringify(state.products))
     },
+    saveDish (state, values) {
+      const index = state.dishes.indexOf(values.oldDish)
+      const updated = state.dishes.concat()
+      if (index > -1) {
+        updated[index] = values.newDish
+        state.dishes = updated
+      }
+      localStorage.setItem('dishes', JSON.stringify(state.dishes))
+    },
     setSearchQuery (state, value) {
       state.toolbar.searchQuery = value
     },
@@ -40,6 +49,7 @@ export default new Vuex.Store({
     },
     addDish (state, value) {
       state.dishes.push(value)
+      localStorage.setItem('dishes', JSON.stringify(state.dishes))
     },
     addProduct (state, value) {
       state.products.push(value)
@@ -63,11 +73,21 @@ export default new Vuex.Store({
         state.products.splice(index, 1)
       }
       localStorage.setItem('products', JSON.stringify(state.products))
+    },
+    removeDish (state, value) {
+      const index = state.dishes.indexOf(value)
+      if (index > -1) {
+        state.dishes.splice(index, 1)
+      }
+      localStorage.setItem('dishes', JSON.stringify(state.dishes))
     }
   },
   actions: {
     saveProduct (context, values) {
       return context.commit('saveProduct', values)
+    },
+    saveDish (context, values) {
+      return context.commit('saveDish', values)
     },
     clearSearch (context) {
       return context.commit('clearSearch')
@@ -98,6 +118,9 @@ export default new Vuex.Store({
     },
     addLabel (context, value) {
       return context.commit('addLabel', value)
+    },
+    removeDish (context, value) {
+      return context.commit('removeDish', value)
     }
   },
   getters: {

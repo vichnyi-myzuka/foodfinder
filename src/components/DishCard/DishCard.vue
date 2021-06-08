@@ -5,7 +5,7 @@
     elevation="0"
   >
     <div class="ProductImage">
-      <img src="https://images.pexels.com/photos/461060/pexels-photo-461060.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" alt="">
+      <img :src="dish.src" alt="">
     </div>
     <div class="DishInfo">
       <h2 class="DishTitle">
