@@ -45,7 +45,6 @@ export async function loadAllLabels () {
     const response = await getDishesLabels()
     const responseData = response.data
     for (const label of responseData) {
-      console.log(label)
       await store.dispatch('addDishLabel', label)
     }
   } catch (e) {

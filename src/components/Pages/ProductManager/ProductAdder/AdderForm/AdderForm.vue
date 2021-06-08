@@ -117,13 +117,13 @@ export default Vue.extend({
     },
     getFormData () {
       return {
-        title: this.title,
-        description: this.description,
-        src: this.src,
+        title: this.title || '',
+        description: this.description || '',
+        src: this.src || '',
         measure: this.measure,
         amount: this.amount,
         price: this.price,
-        label: this.label.id
+        labelId: this.label.id
       }
     },
     getUniqueId (value) {

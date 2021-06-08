@@ -29,7 +29,7 @@
             <v-btn
               text
               dark
-              @click="addProduct"
+              @click="addProductTo"
             >
               Додати
             </v-btn>
@@ -66,10 +66,11 @@ export default Vue.extend({
         'input', false
       )
     },
-    addProduct () {
+    addProductTo () {
       const product = this.$refs.adder.getFormData()
       addProduct(product).then(response => {
         this.closeModal()
+        this.addProduct(response.data)
         this.$emit('adder:addedProduct')
       }).catch(e => console.log(e))
     }

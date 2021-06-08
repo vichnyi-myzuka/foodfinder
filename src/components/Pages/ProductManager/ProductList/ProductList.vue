@@ -39,7 +39,7 @@ export default Vue.extend({
   },
   methods: {
     removeProductFromStore (value) {
-      deleteProduct(value).then(response => {
+      deleteProduct(value.id).then(response => {
         this.$emit('product:deleted')
       }).catch(e => console.log(e))
     },

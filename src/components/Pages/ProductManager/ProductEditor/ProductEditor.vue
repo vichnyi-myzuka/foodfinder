@@ -75,6 +75,7 @@ export default Vue.extend({
       const product = this.$refs.editor.getFormData()
       updateProduct(product).then(response => {
         this.closeModal()
+        this.saveProduct(response.data)
         this.$emit('editor:editedProduct')
       }).catch(e => console.log(e))
     }

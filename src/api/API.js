@@ -32,10 +32,12 @@ export function addProductLabel (name) {
 }
 
 export function addProduct (product) {
+  console.log(product)
   return Axios.post('https://meal-shopping-assistant.herokuapp.com/products/add/', product)
 }
 
 export function updateProduct (product) {
+  console.log(product)
   return Axios.post('https://meal-shopping-assistant.herokuapp.com/products/update/', product)
 }
 

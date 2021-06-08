@@ -50,7 +50,8 @@ export default Vue.extend({
     }
   },
   methods: {
-    removeProduct () {
+    removeProduct (e) {
+      e.stopPropagation()
       this.$emit('removeProduct', this.product)
     },
     isClicked () {
