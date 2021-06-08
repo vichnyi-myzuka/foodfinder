@@ -1,0 +1,36 @@
+.LabelListItem
+  display: flex
+  padding: 35px 15px
+  background-color: #F5F5F5
+  align-items: center
+  min-height: 140px
+  position: relative
+  transition: 0.3s ease
+  &:hover
+    background-color: #ebebeb
+  .LabelDetails
+    position: absolute
+    right: 15px
+    bottom: 5px
+    color: #c9c9c9
+  .LabelInfo
+    margin-left: 1rem
+    align-self: center
+    .LabelTitle
+      line-height: 1
+      font-size: 1.5rem
+    .LabelDescription
+      line-height: 1
+      font-size: 1rem
+      margin: 0
+  .LabelImage
+    display: flex
+    align-items: center
+    img
+      width: 70px
+      height: 70px
+      border-radius: 100%
+      object-fit: cover
+  .LabelRemoveButton
+    align-self: center
+    margin-left: auto

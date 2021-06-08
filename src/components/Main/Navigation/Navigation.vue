@@ -33,7 +33,7 @@ export default Vue.extend({
   computed: {
     isDishesPage () {
       return this.$route.path === '/dishes' || this.$route.path === '/products/edit' || this.$route.path ===
-          '/dishes/edit'
+          '/dishes/edit' || this.$route.path === '/labels'
     }
   },
   methods: {

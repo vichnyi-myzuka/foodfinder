@@ -6,7 +6,10 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     drawer: false,
-    labels: [],
+    labels: {
+      products: [],
+      dishes: []
+    },
     products: [],
     dishes: [],
     cart: [],
@@ -16,6 +19,15 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    clearLabels (state) {
+      state.labels = {
+        products: [],
+        dishes: []
+      }
+    },
+    clearProducts (state) {
+      state.products = []
+    },
     saveProduct (state, values) {
       const index = state.products.indexOf(values.oldProduct)
       const updated = state.products.concat()
@@ -44,8 +56,39 @@ export default new Vuex.Store({
       state.toolbar.searchIsActive = false
       state.toolbar.searchQuery = ''
     },
-    addLabel (state, value) {
-      state.labels.push(value)
+    addProductLabel (state, value) {
+      state.labels.products.push(value)
+    },
+    addDishLabel (state, value) {
+      state.labels.dishes.push(value)
+    },
+    updateProductLabel (state, value) {
+      const index = state.labels.products.findIndex(el => el.id === value.id)
+      const updated = state.labels.products.concat()
+      if (index > -1) {
+        updated[index] = value
+        state.labels.products = updated
+      }
+    },
+    updateDishLabel (state, value) {
+      const index = state.labels.dishes.findIndex(el => el.id === value.id)
+      const updated = state.labels.dishes.concat()
+      if (index > -1) {
+        updated[index] = value
+        state.labels.dishes = updated
+      }
+    },
+    removeProductLabel (state, value) {
+      const index = state.labels.products.findIndex(el => el.id === value.id)
+      if (index > -1) {
+        state.labels.products.splice(index, 1)
+      }
+    },
+    removeDishLabel (state, value) {
+      const index = state.labels.dishes.findIndex(el => el.id === value.id)
+      if (index > -1) {
+        state.labels.dishes.splice(index, 1)
+      }
     },
     addDish (state, value) {
       state.dishes.push(value)
@@ -83,6 +126,9 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    clearLabels (context) {
+      return context.commit('clearLabels')
+    },
     saveProduct (context, values) {
       return context.commit('saveProduct', values)
     },
@@ -104,6 +150,9 @@ export default new Vuex.Store({
     addToCart (context, value) {
       return context.commit('addToCart', value)
     },
+    clearProducts (context) {
+      return context.commit('clearProducts')
+    },
     removeFromCart (context, value) {
       return context.commit('removeFromCart', value)
     },
@@ -116,8 +165,23 @@ export default new Vuex.Store({
     removeProduct (context, value) {
       return context.commit('removeProduct', value)
     },
-    addLabel (context, value) {
-      return context.commit('addLabel', value)
+    addProductLabel (context, value) {
+      return context.commit('addProductLabel', value)
+    },
+    addDishLabel (context, value) {
+      return context.commit('addDishLabel', value)
+    },
+    updateProductLabel (context, value) {
+      return context.commit('updateProductLabel', value)
+    },
+    updateDishLabel (context, value) {
+      return context.commit('updateDishLabel', value)
+    },
+    removeProductLabel (context, value) {
+      return context.commit('removeProductLabel', value)
+    },
+    removeDishLabel (context, value) {
+      return context.commit('removeDishLabel', value)
     },
     removeDish (context, value) {
       return context.commit('removeDish', value)
@@ -147,6 +211,12 @@ export default new Vuex.Store({
     },
     getLabels: state => {
       return state.labels
+    },
+    getProductsLabels: state => {
+      return state.labels.products
+    },
+    getDishesLabels: state => {
+      return state.labels.dishes
     },
     getProducts: state => {
       return state.products

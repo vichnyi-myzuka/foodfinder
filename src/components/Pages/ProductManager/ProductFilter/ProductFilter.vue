@@ -1,7 +1,7 @@
 <template>
   <v-combobox
     v-model="selected"
-    :items="getLabels"
+    :items="getProductsLabels"
     @input="updateFilter"
     chips
     color="purple darken-3"
@@ -10,7 +10,7 @@
     elevation="0"
     label="Оберіть категорії"
     multiple
-    :item-text="(el) => el.title"
+    :item-text="(el) => el.name"
   >
     <template v-slot:selection="{ attrs, item, select, selected }">
       <v-chip
@@ -22,7 +22,7 @@
         @click="select"
         @click:close="remove(item)"
       >
-        <strong>{{ item.title }}</strong>&nbsp;
+        <strong>{{ item.name }}</strong>&nbsp;
       </v-chip>
     </template>
   </v-combobox>
@@ -33,7 +33,7 @@ import { mapGetters } from 'vuex'
 export default Vue.extend({
   name: 'ProductFilter',
   computed: {
-    ...mapGetters(['getLabels'])
+    ...mapGetters(['getProductsLabels'])
   },
   data () {
     return {

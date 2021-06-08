@@ -8,10 +8,11 @@
 </template>
 <script>
 import Vue from 'vue'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 import hash from 'object-hash'
 import some from 'lodash.some'
 import { sortBy } from 'lodash'
+import { deleteProduct } from '../../../../api/API'
 import ProductListItem from './ProductListItem/ProductListItem'
 export default Vue.extend({
   name: 'ProductList',
@@ -37,9 +38,10 @@ export default Vue.extend({
 
   },
   methods: {
-    ...mapActions(['removeProduct']),
     removeProductFromStore (value) {
-      this.removeProduct(value)
+      deleteProduct(value).then(response => {
+        this.$emit('product:deleted')
+      }).catch(e => console.log(e))
     },
     productChosen (value) {
       this.$emit('product:selected', value)

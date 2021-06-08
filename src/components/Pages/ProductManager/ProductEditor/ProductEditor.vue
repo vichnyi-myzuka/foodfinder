@@ -44,6 +44,7 @@
 <script>
 import Vue from 'vue'
 import EditorForm from './EditorForm/EditorForm'
+import { updateProduct } from '../../../../api/API'
 import { mapActions } from 'vuex'
 export default Vue.extend({
   name: 'ProductEditor',
@@ -71,12 +72,11 @@ export default Vue.extend({
       if (this.$refs.editor) { this.$refs.editor.assignAreas() }
     },
     saveProductToStore () {
-      this.saveProduct({
-        oldProduct: this.product,
-        newProduct: this.$refs.editor.getFormData()
-      })
-      this.closeModal()
-      this.$emit('editor:editedProduct')
+      const product = this.$refs.editor.getFormData()
+      updateProduct(product).then(response => {
+        this.closeModal()
+        this.$emit('editor:editedProduct')
+      }).catch(e => console.log(e))
     }
   }
 })

@@ -29,7 +29,7 @@
             <v-btn
               text
               dark
-              @click="addProductTo"
+              @click="addProduct"
             >
               Додати
             </v-btn>
@@ -45,6 +45,8 @@
 import Vue from 'vue'
 import AdderForm from './AdderForm/AdderForm'
 import { mapActions } from 'vuex'
+import { addProduct } from '../../../../api/API'
+
 export default Vue.extend({
   name: 'ProductAdder',
   props: {
@@ -64,10 +66,12 @@ export default Vue.extend({
         'input', false
       )
     },
-    addProductTo () {
-      this.addProduct(this.$refs.adder.getFormData())
-      this.closeModal()
-      this.$emit('adder:addedProduct')
+    addProduct () {
+      const product = this.$refs.adder.getFormData()
+      addProduct(product).then(response => {
+        this.closeModal()
+        this.$emit('adder:addedProduct')
+      }).catch(e => console.log(e))
     }
   }
 })

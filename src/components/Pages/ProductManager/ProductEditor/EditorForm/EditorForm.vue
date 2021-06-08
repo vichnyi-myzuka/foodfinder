@@ -78,8 +78,8 @@
             v-model="label"
             small-chips
             label="Категорія"
-            :items="labels"
-            :item-text="(el) => el.title"
+            :items="getProductsLabels"
+            :item-text="(el) => el.name"
           >
           </v-combobox>
         </v-col>
@@ -125,7 +125,7 @@ export default Vue.extend({
     }
   },
   computed: {
-    ...mapGetters(['getLabels'])
+    ...mapGetters(['getProductsLabels'])
   },
   methods: {
     resetForm () {
@@ -139,7 +139,8 @@ export default Vue.extend({
         measure: this.measure,
         amount: this.amount,
         price: this.price,
-        label: this.label
+        label: this.label,
+        id: this.product.id
       }
     },
     assignAreas () {

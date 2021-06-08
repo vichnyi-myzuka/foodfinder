@@ -14,7 +14,10 @@
       @input="closeEdit"
       @editor:editedProduct="updateProducts"/>
     <ActionButton :eventHandler="openAddModal"/>
-    <ProductList :selectedLabels="selectedLabels" v-if="!noProducts" @product:selected="changeSelectedProduct" ref="productList"/>
+    <ProductList :selectedLabels="selectedLabels" v-if="!noProducts"
+                 @product:selected="changeSelectedProduct"
+                 @product:deleted="updateProducts"
+                 ref="productList"/>
   </div>
 </template>
 <script>
@@ -25,6 +28,7 @@ import ProductAdder from '../components/Pages/ProductManager/ProductAdder/Produc
 import ProductList from '../components/Pages/ProductManager/ProductList/ProductList'
 import ProductEditor from '../components/Pages/ProductManager/ProductEditor/ProductEditor'
 import ProductFilter from '../components/Pages/ProductManager/ProductFilter/ProductFilter'
+import { loadAllProducts } from '../api/Utility'
 import { mapGetters } from 'vuex'
 export default Vue.extend({
   name: 'ProductManager',
@@ -63,6 +67,7 @@ export default Vue.extend({
       this.productSelected = {}
     },
     updateProducts () {
+      loadAllProducts()
     },
     changeSelectedProduct (value) {
       this.productSelected = value

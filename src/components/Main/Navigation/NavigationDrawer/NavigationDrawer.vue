@@ -82,7 +82,7 @@ export default Vue.extend({
         new ListItem('🥧 Страви', '/dishes'),
         new ListItem('🛒 Кошик', '/cart')],
       adminPages: [new ListItem('🍎 Редактор продуктів', '/products/edit'),
-        new ListItem('🥧 Редактор страв', '/dishes/edit')]
+        new ListItem('🥧 Редактор страв', '/dishes/edit'), new ListItem('🏷️ Редактор категорій', '/labels')]
     }
   },
   methods: {

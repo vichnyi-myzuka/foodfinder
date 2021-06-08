@@ -77,8 +77,8 @@
             clearable
             small-chips
             label="Категорія"
-            :items="labels"
-            :item-text="(el) => el.title"
+            :items="getProductsLabels"
+            :item-text="(el) => el.name"
             v-model="label"
           >
           </v-combobox>
@@ -98,7 +98,6 @@ export default Vue.extend({
   name: 'AdderForm',
   data () {
     return {
-      labels: [],
       valid: true,
       title: '',
       description: '',
@@ -110,7 +109,7 @@ export default Vue.extend({
     }
   },
   computed: {
-    ...mapGetters(['getLabels'])
+    ...mapGetters(['getProductsLabels'])
   },
   methods: {
     resetForm () {
@@ -124,7 +123,7 @@ export default Vue.extend({
         measure: this.measure,
         amount: this.amount,
         price: this.price,
-        label: this.label
+        label: this.label.id
       }
     },
     getUniqueId (value) {
@@ -132,7 +131,6 @@ export default Vue.extend({
     }
   },
   async mounted () {
-    this.labels = this.getLabels
   }
 })
 </script>
