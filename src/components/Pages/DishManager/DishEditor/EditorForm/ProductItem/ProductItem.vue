@@ -21,6 +21,7 @@
       type="number"
       v-model="amount"
       @input="updateProduct"
+      min="0"
       :prefix="measure"
     >{{ measure }}</v-text-field>
     <v-btn
