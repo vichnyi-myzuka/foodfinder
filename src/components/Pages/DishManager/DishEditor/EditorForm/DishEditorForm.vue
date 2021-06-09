@@ -91,7 +91,7 @@ import Vue from 'vue'
 import uniqueId from 'lodash.uniqueid'
 import ProductItem from './ProductItem/ProductItem'
 import { mapGetters } from 'vuex'
-import { mapProducts } from '../../../../../api/Utility'
+import { mapProducts, findProducts } from '../../../../../api/Utility'
 import AddProductButton from '../../../../Main/Buttons/AddProductButton/AddProductButton'
 export default Vue.extend({
   name: 'DishEditorForm',
@@ -112,7 +112,15 @@ export default Vue.extend({
     }
   },
   computed: {
-    ...mapGetters(['getDishesLabels'])
+    ...mapGetters(['getDishesLabels', 'getProduct', 'getDishLabel']),
+    getProducts () {
+      return this.products.map(product => {
+        return {
+          amount: product.amount,
+          product: this.getProduct(product.id)
+        }
+      })
+    }
   },
   watch: {
     dish (value) {
@@ -131,6 +139,7 @@ export default Vue.extend({
       this.products = []
     },
     getFormData () {
+      console.log(this.products)
       return {
         title: this.title || '',
         description: this.description || '',
@@ -158,7 +167,8 @@ export default Vue.extend({
       this.description = this.dish.description
       this.src = this.dish.src
       this.portions = this.dish.portions
-      this.products = this.dish.products
+      this.products = findProducts(this.dish.products)
+      this.label = this.getDishLabel(this.dish.labelId)
     }
   },
   async mounted () {

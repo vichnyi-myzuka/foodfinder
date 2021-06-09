@@ -70,6 +70,7 @@ export default Vue.extend({
       const data = this.$refs.dishAdder.getFormData()
       addDish(data).then(response => {
         const data = response.data
+        console.log(data)
         this.addDish(data).then(() => {
           this.$emit('adder:addedDish')
           this.closeModal()

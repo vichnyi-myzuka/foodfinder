@@ -48,7 +48,7 @@ export default Vue.extend({
     product: Object
   },
   computed: {
-    ...mapGetters(['getProducts']),
+    ...mapGetters(['getProducts', 'getProduct']),
     measure () {
       if (this.productChosen) return this.productChosen.measure
       return ''
@@ -76,6 +76,7 @@ export default Vue.extend({
   },
   async mounted () {
     this.products = this.getProducts
+    if (this.product.id) { this.productChosen = this.getProduct(this.product.id) }
     if (this.product.product) { this.productChosen = this.product.product }
     if (this.product.amount) { this.amount = this.product.amount }
   }

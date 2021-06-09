@@ -32,7 +32,7 @@ export default Vue.extend({
   computed: {
     ...mapGetters(['getDishes']),
     noDishes () {
-      return this.dishes.length === 0
+      return this.getDishes.length === 0
     }
   },
   data () {
@@ -60,9 +60,6 @@ export default Vue.extend({
       this.$refs.dishEditor.reRenderForm()
       this.openEditModal()
     }
-  },
-  mounted () {
-    this.dishes = this.getDishes
   }
 })
 </script>

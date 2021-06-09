@@ -36,8 +36,7 @@ export default Vue.extend({
     ...mapActions(['removeDish']),
     removeDishFromStore (value) {
       deleteDish(value.id).then(response => {
-        const data = response.data
-        this.removeDish(data)
+        this.removeDish(value.id)
       }).catch(e => console.log(e))
     },
     dishChosen (value) {
@@ -46,8 +45,6 @@ export default Vue.extend({
     hashFunction (object) {
       return hash(object)
     }
-  },
-  async mounted () {
   }
 })
 </script>

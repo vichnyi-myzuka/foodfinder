@@ -35,7 +35,6 @@ export default new Vuex.Store({
         updated[index] = values.newProduct
         state.products = updated
       }
-      localStorage.setItem('products', JSON.stringify(state.products))
     },
     saveDish (state, values) {
       const index = state.dishes.indexOf(values.oldDish)
@@ -44,7 +43,6 @@ export default new Vuex.Store({
         updated[index] = values.newDish
         state.dishes = updated
       }
-      localStorage.setItem('dishes', JSON.stringify(state.dishes))
     },
     setSearchQuery (state, value) {
       state.toolbar.searchQuery = value
@@ -92,11 +90,9 @@ export default new Vuex.Store({
     },
     addDish (state, value) {
       state.dishes.push(value)
-      localStorage.setItem('dishes', JSON.stringify(state.dishes))
     },
     addProduct (state, value) {
       state.products.push(value)
-      localStorage.setItem('products', JSON.stringify(state.products))
     },
     setDrawer (state, value) {
       state.drawer = value
@@ -115,14 +111,15 @@ export default new Vuex.Store({
       if (index > -1) {
         state.products.splice(index, 1)
       }
-      localStorage.setItem('products', JSON.stringify(state.products))
     },
     removeDish (state, value) {
-      const index = state.dishes.indexOf(value)
+      const index = state.dishes.findIndex(dish => dish.id === value)
       if (index > -1) {
         state.dishes.splice(index, 1)
       }
-      localStorage.setItem('dishes', JSON.stringify(state.dishes))
+    },
+    clearDishes (state) {
+      state.dishes = []
     }
   },
   actions: {
@@ -157,6 +154,7 @@ export default new Vuex.Store({
       return context.commit('removeFromCart', value)
     },
     addDish (context, value) {
+      console.log(value)
       return context.commit('addDish', value)
     },
     addProduct (context, value) {
@@ -185,6 +183,9 @@ export default new Vuex.Store({
     },
     removeDish (context, value) {
       return context.commit('removeDish', value)
+    },
+    clearDishes (context) {
+      return context.commit('clearDishes')
     }
   },
   getters: {
@@ -220,6 +221,12 @@ export default new Vuex.Store({
     },
     getProducts: state => {
       return state.products
+    },
+    getProduct: state => id => {
+      return state.products.find(product => product.id === id) || { title: 'No such product' }
+    },
+    getDishLabel: state => id => {
+      return state.labels.dishes.find(label => label.id === id) || { title: 'No such label' }
     }
   },
   modules: {

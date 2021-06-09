@@ -1,15 +1,19 @@
 import { getDishes, getProducts, getDishesLabels, getProductsLabels } from './API'
 import store from '../store/index'
 export function loadAllDishes () {
+  store.dispatch('clearDishes')
   getDishes().then(response => {
     const data = response.data
+    console.log(data)
     for (const dish of data) {
       store.dispatch('addDish', {
         title: dish.title,
         description: dish.description,
         src: dish.src,
         portions: dish.portions,
-        products: dish.products
+        products: dish.products,
+        id: dish.id,
+        labelId: dish.labelId
       })
     }
   }).catch(e => {
@@ -21,7 +25,6 @@ export function loadAllProducts () {
   store.dispatch('clearProducts')
   getProducts().then(response => {
     const data = response.data
-    console.log(data)
     for (const product of data) {
       store.dispatch('addProduct', product)
     }
@@ -56,6 +59,15 @@ export function mapProducts (products) {
   return products.map(product => {
     return {
       id: product.product.id,
+      amount: product.amount
+    }
+  })
+}
+
+export function findProducts (products) {
+  return products.map(product => {
+    return {
+      product: store.getters.getProduct(product.id),
       amount: product.amount
     }
   })

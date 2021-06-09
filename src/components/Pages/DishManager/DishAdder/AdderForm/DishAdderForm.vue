@@ -130,7 +130,7 @@ export default Vue.extend({
         src: this.src || '',
         portions: this.portions || '4',
         products: mapProducts(this.products) || [],
-        labelId: this.label.id
+        labelId: this.label.id || ''
       }
     },
     getUniqueId (value) {
