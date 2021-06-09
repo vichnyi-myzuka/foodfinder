@@ -45,6 +45,8 @@
 import Vue from 'vue'
 import DishAdderForm from './AdderForm/DishAdderForm'
 import { mapActions } from 'vuex'
+import { addDish } from '../../../../api/API'
+
 export default Vue.extend({
   name: 'DishAdder',
   props: {
@@ -66,10 +68,13 @@ export default Vue.extend({
     },
     addDishTo () {
       const data = this.$refs.dishAdder.getFormData()
-      this.addDish(data).then(() => {
-        this.$emit('adder:addedDish')
-        this.closeModal()
-      })
+      addDish(data).then(response => {
+        const data = response.data
+        this.addDish(data).then(() => {
+          this.$emit('adder:addedDish')
+          this.closeModal()
+        })
+      }).catch(e => console.log(e))
     }
   }
 })

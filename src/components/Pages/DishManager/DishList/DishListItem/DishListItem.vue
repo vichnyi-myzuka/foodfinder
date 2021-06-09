@@ -44,7 +44,8 @@ export default Vue.extend({
     }
   },
   methods: {
-    removeDish () {
+    removeDish (e) {
+      e.stopPropagation()
       this.$emit('removeDish', this.dish)
     },
     isClicked () {

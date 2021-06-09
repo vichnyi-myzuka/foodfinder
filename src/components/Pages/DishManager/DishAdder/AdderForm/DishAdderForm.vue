@@ -46,7 +46,20 @@
             min="1"
           ></v-text-field>
         </v-col>
-
+        <v-col
+          cols="12"
+          md="12"
+        >
+        <v-combobox
+          clearable
+          small-chips
+          label="Категорія"
+          :items="getDishesLabels"
+          :item-text="(el) => el.name"
+          v-model="label"
+        >
+        </v-combobox>
+        </v-col>
         <v-card-title>
           Додати продукти
         </v-card-title>
@@ -78,6 +91,8 @@ import Vue from 'vue'
 import uniqueId from 'lodash.uniqueid'
 import ProductItem from '../../DishEditor/EditorForm/ProductItem/ProductItem'
 import AddProductButton from '../../../../Main/Buttons/AddProductButton/AddProductButton'
+import { mapProducts } from '../../../../../api/Utility'
+import { mapGetters } from 'vuex'
 export default Vue.extend({
   name: 'DishAdderForm',
   components: {
@@ -85,7 +100,7 @@ export default Vue.extend({
   },
   data () {
     return {
-      labels: [],
+      label: '',
       valid: true,
       title: '',
       description: '',
@@ -95,6 +110,7 @@ export default Vue.extend({
     }
   },
   computed: {
+    ...mapGetters(['getDishesLabels'])
   },
   methods: {
     updateProduct (value) {
@@ -109,11 +125,12 @@ export default Vue.extend({
     },
     getFormData () {
       return {
-        title: this.title,
-        description: this.description,
-        src: this.src,
-        portions: this.portions,
-        products: this.products
+        title: this.title || '',
+        description: this.description || '',
+        src: this.src || '',
+        portions: this.portions || '4',
+        products: mapProducts(this.products) || [],
+        labelId: this.label.id
       }
     },
     getUniqueId (value) {

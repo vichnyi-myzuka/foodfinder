@@ -45,6 +45,8 @@
 import Vue from 'vue'
 import DishEditorForm from './EditorForm/DishEditorForm'
 import { mapActions } from 'vuex'
+import { updateDish } from '../../../../api/API'
+
 export default Vue.extend({
   name: 'DishEditor',
   props: {
@@ -71,13 +73,17 @@ export default Vue.extend({
       if (this.$refs.dishEditor) { this.$refs.dishEditor.$forceUpdate() }
     },
     saveDishToStore () {
-      this.saveDish({
-        oldDish: this.dish,
-        newDish: this.$refs.dishEditor.getFormData()
-      }).then(() => {
-        this.closeModal()
-        this.$emit('editor:editedDish')
-      })
+      const data = this.$refs.dishEditor.getFormData()
+      updateDish(data).then(response => {
+        const newData = response.data
+        this.saveDish({
+          oldDish: this.dish,
+          newDish: newData
+        }).then(() => {
+          this.closeModal()
+          this.$emit('editor:editedDish')
+        })
+      }).catch(e => console.log(e))
     }
   }
 })

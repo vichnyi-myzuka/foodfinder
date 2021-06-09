@@ -51,3 +51,12 @@ export async function loadAllLabels () {
     console.log(e)
   }
 }
+
+export function mapProducts (products) {
+  return products.map(product => {
+    return {
+      id: product.product.id,
+      amount: product.amount
+    }
+  })
+}

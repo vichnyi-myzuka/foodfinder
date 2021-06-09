@@ -11,6 +11,7 @@ import Vue from 'vue'
 import { mapGetters, mapActions } from 'vuex'
 import hash from 'object-hash'
 import { sortBy } from 'lodash'
+import { deleteDish } from '../../../../api/API'
 import DishListItem from './DishListItem/DishListItem'
 export default Vue.extend({
   name: 'DishList',
@@ -34,7 +35,10 @@ export default Vue.extend({
   methods: {
     ...mapActions(['removeDish']),
     removeDishFromStore (value) {
-      this.removeDish(value)
+      deleteDish(value.id).then(response => {
+        const data = response.data
+        this.removeDish(data)
+      }).catch(e => console.log(e))
     },
     dishChosen (value) {
       this.$emit('dish:selected', value)

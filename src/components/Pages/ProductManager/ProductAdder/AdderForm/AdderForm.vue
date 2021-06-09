@@ -121,8 +121,8 @@ export default Vue.extend({
         description: this.description || '',
         src: this.src || '',
         measure: this.measure,
-        amount: this.amount,
-        price: this.price,
+        amount: this.amount + '',
+        price: this.price + '',
         labelId: this.label.id
       }
     },
