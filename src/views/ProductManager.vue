@@ -38,12 +38,11 @@ export default Vue.extend({
   computed: {
     ...mapGetters(['getProducts']),
     noProducts () {
-      return this.products.length === 0
+      return this.getProducts === 0
     }
   },
   data () {
     return {
-      products: [],
       addModal: false,
       editModal: false,
       productSelected: {},
@@ -76,7 +75,6 @@ export default Vue.extend({
     }
   },
   mounted () {
-    this.products = this.getProducts
   }
 })
 </script>

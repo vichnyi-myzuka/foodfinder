@@ -10,6 +10,7 @@
       <v-text-field
         label="Пошук"
         class="SearchField"
+        autofocus
         @input="setSearchQuery(query)"
         v-model="query"
         solo

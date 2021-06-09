@@ -70,7 +70,7 @@
           <div class="ProductsContainer">
             <ProductItem v-for="(product, index) in products"
                          :product="product"
-                         :key="index"
+                         :key="hashFunction(product) + dish.id"
                          :index="index"
                          @product:remove="removeProduct"
                          @product:updated="updateProduct"
@@ -91,6 +91,7 @@ import Vue from 'vue'
 import uniqueId from 'lodash.uniqueid'
 import ProductItem from './ProductItem/ProductItem'
 import { mapGetters } from 'vuex'
+import hash from 'object-hash'
 import { mapProducts, findProducts } from '../../../../../api/Utility'
 import AddProductButton from '../../../../Main/Buttons/AddProductButton/AddProductButton'
 export default Vue.extend({
@@ -155,6 +156,7 @@ export default Vue.extend({
     },
     removeProduct (value) {
       const index = this.products.indexOf(value)
+      console.log(index)
       if (index > -1) {
         this.products.splice(index, 1)
       }
@@ -163,12 +165,17 @@ export default Vue.extend({
       this.products = [...this.products, {}]
     },
     assignAreas () {
-      this.title = this.dish.title
-      this.description = this.dish.description
-      this.src = this.dish.src
-      this.portions = this.dish.portions
-      this.products = findProducts(this.dish.products)
-      this.label = this.getDishLabel(this.dish.labelId)
+      if (this.dish) {
+        this.title = this.dish.title
+        this.description = this.dish.description
+        this.src = this.dish.src
+        this.portions = this.dish.portions
+        this.products = findProducts(this.dish.products)
+        this.label = this.getDishLabel(this.dish.labelId)
+      }
+    },
+    hashFunction (object) {
+      return hash(object)
     }
   },
   async mounted () {

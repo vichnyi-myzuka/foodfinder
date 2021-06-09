@@ -41,6 +41,7 @@
 <script>
 import Vue from 'vue'
 import { mapGetters } from 'vuex'
+import hash from 'object-hash'
 export default Vue.extend({
   name: 'ProductItem',
   props: {
@@ -69,9 +70,12 @@ export default Vue.extend({
       this.$emit('product:updated', {
         old: this.product,
         product: this.productChosen,
-        amount: this.amount,
+        amount: this.amount + '',
         index: this.index
       })
+    },
+    hashFunction (object) {
+      return hash(object)
     }
   },
   async mounted () {

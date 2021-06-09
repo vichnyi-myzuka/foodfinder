@@ -51,7 +51,6 @@ export default Vue.extend({
       this.editModal = true
     },
     closeEdit () {
-      this.dishSelected = {}
     },
     updateDishes () {
     },
