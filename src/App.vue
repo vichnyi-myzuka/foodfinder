@@ -25,7 +25,7 @@ export default Vue.extend({
     ...mapActions(['addDish'])
   },
   async mounted () {
-    await loadAllLabels()
+    loadAllLabels()
     loadAllProducts()
     loadAllDishes()
   }

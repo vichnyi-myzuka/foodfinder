@@ -4,7 +4,6 @@ export function loadAllDishes () {
   store.dispatch('clearDishes')
   getDishes().then(response => {
     const data = response.data
-    console.log(data)
     for (const dish of data) {
       store.dispatch('addDish', {
         title: dish.title,

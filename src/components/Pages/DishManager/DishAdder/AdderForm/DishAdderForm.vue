@@ -9,6 +9,7 @@
           <v-text-field
             v-model="title"
             label="Назва"
+            autofocus
             required
           ></v-text-field>
         </v-col>
@@ -72,6 +73,7 @@
                        :product="product"
                        :key="index"
                        :index="index"
+                       @addProduct="addProduct"
                        @product:remove="removeProduct"
                        @product:updated="updateProduct"
           />
@@ -106,7 +108,7 @@ export default Vue.extend({
       description: '',
       src: '',
       portions: 1,
-      products: [{}]
+      products: []
     }
   },
   computed: {

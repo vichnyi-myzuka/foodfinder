@@ -13,6 +13,7 @@
         autofocus
         @input="setSearchQuery(query)"
         v-model="query"
+        @keydown="closeSearch"
         solo
       ></v-text-field>
     </v-dialog>
@@ -39,6 +40,11 @@ export default Vue.extend({
   },
   methods: {
     ...mapActions(['setSearchQuery', 'setSearchState']),
+    closeSearch (e) {
+      if (e.keyCode === 13) {
+        this.setSearchState()
+      }
+    },
     changeSearchState () {
       this.setSearchState()
       this.setSearchQuery('')

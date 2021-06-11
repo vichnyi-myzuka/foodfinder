@@ -154,7 +154,6 @@ export default new Vuex.Store({
       return context.commit('removeFromCart', value)
     },
     addDish (context, value) {
-      console.log(value)
       return context.commit('addDish', value)
     },
     addProduct (context, value) {
