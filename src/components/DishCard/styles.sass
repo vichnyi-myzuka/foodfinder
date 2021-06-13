@@ -35,3 +35,32 @@
       .DishAddButton, .DishRemoveButton
         align-self: center
         margin-left: auto
+
+.dish-card
+  display: flex
+  padding: 35px 15px
+  background-color: #F5F5F5!important
+  transition: 0.3s ease
+  &:hover
+    background-color: #ebebeb
+  .DishInfo
+    margin-left: 1rem
+    align-self: center
+    .DishTitle
+      line-height: 1
+      font-size: 1.5rem
+    .DishDescription
+      line-height: 1
+      font-size: 1rem
+      margin: 0
+  .ProductImage
+    display: flex
+    align-items: center
+    img
+      width: 70px
+      object-fit: cover
+      height: 70px
+      border-radius: 100%
+  .DishAddButton, .DishRemoveButton
+    align-self: center
+    margin-left: auto

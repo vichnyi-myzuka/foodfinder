@@ -44,16 +44,17 @@ export function deleteProduct (id) {
 }
 
 export function addDish (dish) {
-  console.log(dish)
   return Axios.post('https://meal-shopping-assistant.herokuapp.com/dishes/add/', dish)
 }
 
 export function updateDish (dish) {
-  console.log(dish)
   return Axios.post('https://meal-shopping-assistant.herokuapp.com/dishes/update/', dish)
 }
 
 export function deleteDish (id) {
-  console.log({ id })
   return Axios.post('https://meal-shopping-assistant.herokuapp.com/dishes/delete/', { id })
+}
+
+export function getList (cart) {
+  return Axios.post('https://meal-shopping-assistant.herokuapp.com/list/', cart)
 }

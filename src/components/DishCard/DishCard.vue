@@ -68,6 +68,7 @@ export default Vue.extend({
     },
     removeDishFromCart (dish) {
       this.removeFromCart(dish)
+      this.$emit('dish:deleted')
     }
   }
 })

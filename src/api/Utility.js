@@ -71,3 +71,28 @@ export function findProducts (products) {
     }
   })
 }
+
+export function mapDishesForCart (dishes) {
+  return dishes.map(dish => {
+    return {
+      dishId: dish.id,
+      portions: dish.portions + ''
+    }
+  })
+}
+
+export function mapProductsForCart (products) {
+  return products.map(product => {
+    return {
+      productId: product.id,
+      amount: product.amount + ''
+    }
+  })
+}
+export function mapDishes (dishes) {
+  return dishes.map(dish => {
+    return {
+      ...store.getters.getDish(dish.id)
+    }
+  })
+}

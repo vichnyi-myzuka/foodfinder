@@ -1,10 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { mapDishesForCart, mapProductsForCart } from '../api/Utility'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    loadedCart: {
+      dishes: [],
+      products: []
+    },
     drawer: false,
     labels: {
       products: [],
@@ -12,7 +17,10 @@ export default new Vuex.Store({
     },
     products: [],
     dishes: [],
-    cart: [],
+    cart: {
+      dishes: [],
+      products: []
+    },
     toolbar: {
       searchIsActive: false,
       searchQuery: ''
@@ -46,6 +54,9 @@ export default new Vuex.Store({
     },
     setSearchQuery (state, value) {
       state.toolbar.searchQuery = value
+    },
+    setLoadedCart (state, value) {
+      state.loadedCart = value
     },
     setSearchState (state) {
       state.toolbar.searchIsActive = !state.toolbar.searchIsActive
@@ -98,12 +109,12 @@ export default new Vuex.Store({
       state.drawer = value
     },
     addToCart (state, value) {
-      state.cart.push(value)
+      state.cart.dishes.push(value)
     },
     removeFromCart (state, value) {
-      const index = state.cart.indexOf(value)
+      const index = state.cart.dishes.indexOf(value)
       if (index > -1) {
-        state.cart.splice(index, 1)
+        state.cart.dishes.splice(index, 1)
       }
     },
     removeProduct (state, value) {
@@ -134,6 +145,9 @@ export default new Vuex.Store({
     },
     clearSearch (context) {
       return context.commit('clearSearch')
+    },
+    setLoadedCart (context, value) {
+      return context.commit('setLoadedCart', value)
     },
     setSearchQuery (context, value) {
       return context.commit('setSearchQuery', value)
@@ -198,13 +212,13 @@ export default new Vuex.Store({
       return state.drawer
     },
     isCartEmpty (state) {
-      return state.cart.length === 0
+      return state.cart.dishes.length === 0
     },
     getCartCount (state) {
-      return state.cart.length
+      return state.cart.dishes.length
     },
     dishInCart: state => dish => {
-      return state.cart.indexOf(dish) > -1
+      return state.cart.dishes.indexOf(dish) > -1
     },
     getDishes: state => {
       return state.dishes
@@ -221,11 +235,26 @@ export default new Vuex.Store({
     getProducts: state => {
       return state.products
     },
+    getDish: state => id => {
+      return state.dishes.find(dish => dish.id === id) || { title: 'No such dish' }
+    },
     getProduct: state => id => {
       return state.products.find(product => product.id === id) || { title: 'No such product' }
     },
     getDishLabel: state => id => {
       return state.labels.dishes.find(label => label.id === id) || { title: 'No such label' }
+    },
+    getCart: state => {
+      return {
+        dishes: mapDishesForCart(state.cart.dishes),
+        products: mapProductsForCart(state.cart.products)
+      }
+    },
+    getLoadedCart: state => {
+      return state.loadedCart
+    },
+    getObjectCart: state => {
+      return state.cart
     }
   },
   modules: {
