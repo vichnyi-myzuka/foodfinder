@@ -131,6 +131,14 @@ export default new Vuex.Store({
     },
     clearDishes (state) {
       state.dishes = []
+    },
+    updateDishInCart (state, value) {
+      const index = state.cart.dishes.findIndex(dish => dish.id === value.id)
+      const updated = state.cart.dishes.concat()
+      if (index > -1) {
+        updated[index] = value
+        state.cart.dishes = updated
+      }
     }
   },
   actions: {
@@ -199,6 +207,9 @@ export default new Vuex.Store({
     },
     clearDishes (context) {
       return context.commit('clearDishes')
+    },
+    updateDishInCart (context, value) {
+      return context.commit('updateDishInCart', value)
     }
   },
   getters: {

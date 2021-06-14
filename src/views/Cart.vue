@@ -35,7 +35,6 @@ export default Vue.extend({
     ...mapActions(['setLoadedCart']),
     async loadCart () {
       const cart = await this.getCart
-      console.log(cart)
       getList(cart).then(response => {
         const data = response.data
         this.setLoadedCart(data)

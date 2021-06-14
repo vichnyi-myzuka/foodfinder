@@ -59,7 +59,7 @@ export default Vue.extend({
     DishEditorForm
   },
   methods: {
-    ...mapActions(['addDish', 'saveDish']),
+    ...mapActions(['addDish', 'saveDish', 'updateDishInCart']),
     escapeClose (e) {
       if (e.keyCode === 27) this.closeModal()
     },
@@ -80,6 +80,7 @@ export default Vue.extend({
           oldDish: this.dish,
           newDish: newData
         }).then(() => {
+          this.updateDishInCart(newData)
           this.closeModal()
           this.$emit('editor:editedDish')
         })

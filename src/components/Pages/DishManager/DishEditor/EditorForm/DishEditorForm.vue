@@ -140,7 +140,6 @@ export default Vue.extend({
       this.products = []
     },
     getFormData () {
-      console.log(this.products)
       return {
         title: this.title || '',
         description: this.description || '',
